@@ -23,5 +23,5 @@
   @if (p.discount > 0) {
     <p>{{ p.price * (1 - p.discount) | currency }}</p>
   }
-  <button class="cta" (click)="addToCart()">Buy</button>
+  <ng-content />
 </div>
