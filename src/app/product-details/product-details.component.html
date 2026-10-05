@@ -16,6 +16,8 @@
         {{ availableInventory() | i18nPlural:inventoryMap }} left!
       </span>
     </p>
+    <div>Favorite rating: {{ favorite() }}</div>
+    <bot-slider [(sliderValue)]="favorite" />
   </div>
 </div>
 <div class="price">
