@@ -5,7 +5,7 @@
   <button (click)="checkout.scrollIntoView({ behavior: 'smooth' })">Proceed to Checkout</button>
 }
 <ul>
-  @for (product of cartItems(); track product.id) {
+  @for (product of cartItems() | amountProducts; track product.id) {
   <li>
     <bot-product-details mode="cart" (removeFromCart)="removeFromCart($event)" [product]="product" />
   </li>

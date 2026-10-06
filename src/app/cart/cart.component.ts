@@ -2,10 +2,11 @@ import { Component, Signal } from '@angular/core';
 import { IProduct } from '../product.model';
 import { CartService } from '../cart.service';
 import { ProductDetailsComponent } from '../product-details/product-details.component';
+import { AmountProductsPipe } from '../amount-products-pipe';
 
 @Component({
   selector: 'bot-cart',
-  imports: [ProductDetailsComponent],
+  imports: [ProductDetailsComponent, AmountProductsPipe],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css',
 })
