@@ -1,8 +1,16 @@
-import { Component, signal, input, output } from '@angular/core';
+import {
+  Component,
+  signal,
+  input,
+  output,
+  inject,
+  computed,
+} from '@angular/core';
 import { IProduct } from '../product.model';
 import { CommonModule } from '@angular/common';
 import { CategoryToPartTypePipe } from '../category-to-part-type-pipe';
 import { SliderComponent } from '../slider/slider.component';
+import { InventoryService } from '../inventory.service';
 
 @Component({
   selector: 'bot-product-details',
@@ -11,6 +19,8 @@ import { SliderComponent } from '../slider/slider.component';
   styleUrls: ['./product-details.component.css'],
 })
 export class ProductDetailsComponent {
+  private inventoryService = inject(InventoryService);
+
   product = input.required<IProduct, IProduct>({
     transform: this.normalizeDiscount,
   });
@@ -19,7 +29,7 @@ export class ProductDetailsComponent {
   removeFromCart = output<IProduct>();
 
   favorite = signal(3);
-  availableInventory = signal(5);
+  availableInventory = computed(() => this.inventoryService.get(this.product().id));
   inventoryMap = {
     '=0': 'Out of stock!',
     '=1': 'Only one left!',
