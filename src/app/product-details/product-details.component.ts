@@ -11,7 +11,9 @@ import { SliderComponent } from '../slider/slider.component';
   styleUrls: ['./product-details.component.css'],
 })
 export class ProductDetailsComponent {
-  product = input.required<IProduct>();
+  product = input.required<IProduct, IProduct>({
+    transform: this.normalizeDiscount,
+  });
   mode = input<'shop' | 'cart'>('shop');
   addToCart = output<IProduct>();
   removeFromCart = output<IProduct>();
@@ -27,6 +29,12 @@ export class ProductDetailsComponent {
     other: 'Get yours today!',
   };
 
+  private normalizeDiscount(product: IProduct): IProduct {
+    if (product.discount < 1) return product;
+
+    return { ...product, discount: product.discount / 100 };
+  }
+
   add() {
     this.addToCart.emit(this.product());
   }
@@ -41,5 +49,9 @@ export class ProductDetailsComponent {
 
   getPriceClasses() {
     return { strikethrough: this.product().discount > 0 };
+  }
+
+  handleSliderChange(value: number) {
+    console.log('Slider value changed to: ', value);
   }
 }
